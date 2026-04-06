@@ -1,0 +1,27 @@
+{
+  "name": "playwright-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:ui": "cucumber-js --config cucumber.ui.js",
+    "test:api": "cucumber-js --config cucumber.api.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.7.0",
+    "@cucumber/html-formatter": "^23.0.0",
+    "@cucumber/pretty-formatter": "^3.2.0",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.4.0",
+    "dotenv": "^17.3.1",
+    "multiple-cucumber-html-reporter": "^3.10.0",
+    "playwright": "^1.58.2",
+    "prettier": "^3.8.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

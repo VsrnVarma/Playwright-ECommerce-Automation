@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment files
+.env
+.env.local
+
+# Ignore all report contents but keep folder structure
+reports/*
+reports/screenshots/*
+reports/traces/*
+reports/videos/*
+
+# But keep the folder placeholders
+!reports/.gitkeep
+!reports/screenshots/.gitkeep
+!reports/traces/.gitkeep
+!reports/videos/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/  
+
+# Playwright cache
+playwright/.cache/
