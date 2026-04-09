@@ -109,54 +109,54 @@ pipeline{
                 }
             }
         }
+    }
+    
+    post {
+        always {
+            echo 'Archiving test artifacts...'
+            // Archive screenshots and traces
+            archiveArtifacts(
+                artifacts: 'reports/screenshots/**/*.png, reports/traces/**/*.zip',
+                allowEmptyArchive: true
+            )
+        }
 
-        post {
-            always {
-                echo 'Archiving test artifacts...'
-                // Archive screenshots and traces
-                archiveArtifacts(
-                    artifacts: 'reports/screenshots/**/*.png, reports/traces/**/*.zip',
-                    allowEmptyArchive: true
-                )
-            }
-
-            success {
-                echo 'All tests passed successfully!'
-                emailext(
-                    subject: "BUILD PASSED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: """
-                        <h2>Build Passed</h2>
-                        <p><b>Job:</b> ${env.JOB_NAME}</p>
-                        <p><b>Build:</b> #${env.BUILD_NUMBER}</p>
-                        <p><b>Duration:</b> ${currentBuild.durationString}</p>
-                        <p><a href="${env.BUILD_URL}">View Build</a></p>
+        success {
+            echo 'All tests passed successfully!'
+            emailext(
+                subject: "BUILD PASSED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    <h2>Build Passed</h2>
+                    <p><b>Job:</b> ${env.JOB_NAME}</p>
+                    <p><b>Build:</b> #${env.BUILD_NUMBER}</p>
+                    <p><b>Duration:</b> ${currentBuild.durationString}</p>
+                    <p><a href="${env.BUILD_URL}">View Build</a></p>
                     """,
-                    mimeType: 'text/html',
-                    to: TEST_USER_EMAIL
-                )
-            }   
+                mimeType: 'text/html',
+                to: TEST_USER_EMAIL
+            )
+        }   
 
-            failure {
-                echo 'Build failed!. Please check the reports for details.'
-                emailext(
-                    subject: "BUILD FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: """
-                        <h2>Build Failed</h2>
-                        <p><b>Job:</b> ${env.JOB_NAME}</p>
-                        <p><b>Build:</b> #${env.BUILD_NUMBER}</p>
-                        <p><b>Failed Stage:</b> ${env.STAGE_NAME}</p>
-                        <p><a href="${env.BUILD_URL}">View Build</a></p>
-                        <p><a href="${env.BUILD_URL}artifact/reports/screenshots/">View Screenshots</a></p>
+        failure {
+            echo 'Build failed!. Please check the reports for details.'
+            emailext(
+                subject: "BUILD FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    <h2>Build Failed</h2>
+                    <p><b>Job:</b> ${env.JOB_NAME}</p>
+                    <p><b>Build:</b> #${env.BUILD_NUMBER}</p>
+                    <p><b>Failed Stage:</b> ${env.STAGE_NAME}</p>
+                    <p><a href="${env.BUILD_URL}">View Build</a></p>
+                    <p><a href="${env.BUILD_URL}artifact/reports/screenshots/">View Screenshots</a></p>
                     """,
-                    mimeType: 'text/html',
-                    to: TEST_USER_EMAIL
-                )
-            }
+                mimeType: 'text/html',
+                to: TEST_USER_EMAIL
+            )
+        }
 
-            cleanup {
-                echo 'Cleaning up workspace...'
-                cleanWs()
-            }
+        cleanup {
+            echo 'Cleaning up workspace...'
+            cleanWs()
         }
     }
 }
