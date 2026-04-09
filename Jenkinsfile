@@ -53,7 +53,7 @@ pipeline{
         stage('Run API Tests') {
             steps {
                 echo 'Running API tests...'
-                bat 'node --max-old-space-size=4096 node_modules/.bin/cucumber-js --config=cucumber.api.js'
+                bat 'npx cucumber-js --config=cucumber.api.js'
             }
             post {
                 always {
@@ -73,7 +73,7 @@ pipeline{
         stage('Run UI Smoke Tests') {
             steps {
                 echo 'Running UI tests...'
-                bat 'node --max-old-space-size=4096 node_modules/.bin/cucumber-js --config=cucumber.ui.js --tags "@smoke"'
+                bat 'npx cucumber-js --config=cucumber.ui.js --tags "@smoke"'
             }   
             post {
                 always {
@@ -93,7 +93,7 @@ pipeline{
         stage('Run UI Regression Tests') {
             steps {
                 echo 'Running UI regression tests...'
-                bat 'node --max-old-space-size=4096 node_modules/.bin/cucumber-js --config=cucumber.ui.js --tags "@regression"'
+                bat 'npx cucumber-js --config=cucumber.ui.js --tags "@regression"'
             }   
             post {
                 always {
